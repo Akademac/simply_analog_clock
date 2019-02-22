@@ -6,6 +6,12 @@
 		<meta name='viewport' content='width=device-width, initial-scale=1.0' />
 		<style type="text/css">
 
+			body {
+				padding: 0px;
+				margin: 0px;
+				overflow: hidden;
+			}
+
 
 			#main_container {
 				width: 31rem;
@@ -26,7 +32,7 @@
 			}
 
 			#hour_needle {
-				width: .2rem;
+				width: .3rem;
 				height: 30rem;
 				margin: auto 50%;
 				background: linear-gradient(black 55%, white 1%);
@@ -43,12 +49,31 @@
 
 
 			#sec_needle {
-				width: .2rem;
+				width: .1rem;
 				height: 30rem;
 				margin: auto 50%;
 				background-color: red;
 				background: linear-gradient(red 55%, white 1%);
 				position: absolute;
+			}
+
+			.needle > p {
+				transform: rotate(90deg);
+			}
+
+			#hour_p {
+				margin-top: 5rem;
+				margin-left: 1rem;
+			}
+		
+			#min_p {
+				margin-top: 2.2rem;
+				margin-left: 1rem;
+			}
+
+			#sec_p {
+				margin-top: .55rem;
+				margin-left: 1rem;
 			}
 
 			#bolt {
@@ -151,6 +176,15 @@
 				font-size: 1.5rem;
 			}
 
+			#day {
+				position: absolute;
+				top: 48%;
+				left: 65%;
+				border: 1px solid black;
+				padding: .2rem;
+				font-size: .7rem;
+			}
+
 			@media screen and (max-width:600px) {
 
 				#main_container {
@@ -178,6 +212,13 @@
 					height: 19rem;
 				}
 
+				#sec_p {
+					margin-top: 1.1rem;
+				}
+
+				#min_p {
+					margin-top: 2.5rem;
+				}
 			}
 
 		</style>
@@ -185,9 +226,9 @@
 	<body>
 		<div id='main_container'>
 			<div id='container'>
-				<div id='hour_needle'>hour</div>
-				<div id='min_needle'>min</div>
-				<div id='sec_needle'>sec</div>
+				<div class='needle' id='hour_needle'><p id='hour_p'>hour</p></div>
+				<div class='needle' id='min_needle'><p id='min_p'>min</p></div>
+				<div class='needle' id='sec_needle'><p id='sec_p'>sec</p></div>
 				<div id='bolt'></div>
 				<span class='hours'>1</span>
 				<span class='hours'>2</span>
@@ -201,14 +242,17 @@
 				<span class='hours'>10</span>
 				<span class='hours'>11</span>
 				<span class='hours'>12</span>
+				<span id='day'></span>
 			</div>
-			</div>
+		</div>
 		<script>
 			let btn = document.querySelector('#btn');
 			let sec_needle = document.querySelector('#sec_needle');
+			let daySpan = document.querySelector('#day');
 			let interval;
-			interval = setInterval(() =>{
-				getTime();
+
+			interval = setInterval(() => {
+				getTime();				
 			}, 1000);
 
 			let getTime = () => {
@@ -219,10 +263,34 @@
 				let secPlus = sec * 6;
 				let minPlus = min * 6;
 				let hourPlus = hour * 30 + min;
+				
+				let day = date.getDay();
+
+				let dayArr = new Array(7);
+
+				dayArr[0] = 'Sunday';
+				dayArr[1] = 'Monday';
+				dayArr[2] = 'Tuesday';
+				dayArr[3] = 'Wednesday';
+				dayArr[4] = 'Thursady';
+				dayArr[5] = 'Friday';
+				dayArr[6] = 'Saturday';
+
+
+				let x = dayArr[day].slice(0, 3);
+
+				console.log(x);
+
+				daySpan.innerHTML = x;
+
+
 				sec_needle.style.transform = `rotate(${secPlus}deg)`;
 				min_needle.style.transform = `rotate(${minPlus}deg)`;
 				hour_needle.style.transform = `rotate(${hourPlus}deg)`;
+
 			};		
+
+
 
 		</script>
 	</body>
