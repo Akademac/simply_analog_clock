@@ -31,6 +31,7 @@
 				border-radius: 50%;
 				position: relative;
 				background-color: white;
+				box-shadow: 1px 1px 1px black;
 			}
 
 			#hour_needle {
@@ -53,7 +54,7 @@
 
 
 			#sec_needle {
-				width: .1rem;
+				width: .05rem;
 				height: 30rem;
 				margin: auto 50%;
 				background-color: red;
@@ -267,8 +268,8 @@
 				let min = date.getMinutes();
 				let hour = date.getHours();
 				let secPlus = sec * 6;
-				let minPlus = min * 6;
-				let hourPlus = hour * 30 + min;
+				let minPlus = min * 6 + 0.1 * sec;
+				let hourPlus = hour * 30 + 0.5 * min;
 				
 				let day = date.getDay();
 
